@@ -10,9 +10,10 @@ Du får ett färdigt API-projekt som grund, där tre endpoints finns klara för 
 Uppgiften är tänkt att visa din förmåga inom:  
 - **Algoritmiskt tankesätt och logiska tillvägagångssätt vid utformande av algoritmer** och hur du strukturerar logik.  
 - **Analys och strukturering av applikationer**.  
-- **Objektorienterad programmeringsteknik** (arv, komposition, inkapsling, etc.).  
+- **Objektorienterad programmeringsteknik och begrepp** (arv, komposition, inkapsling, etc.).  
 
 För att vara exakt så är detta kursmålen:
+- 1, Begrepp inom objektorienterad programmering
 - 2, Algoritmiskt tankesätt och logiska tillvägagångssätt vid utformande av algoritmer
 - 4, Analysering och strukturering av applikationer
 - 5, Strukturerad och objektorienterad programmeringsteknik vid
@@ -28,8 +29,8 @@ För att vara exakt så är detta kursmålen:
 
 2. **Skapa/utöka klassbiblioteket**  
    - Utgå från den existerande Bonsai-klassen i `OperationOOP.Core/Models/Bonsai.cs`.
-   - Lägg till minst två nya klasser i klassbiblioteket som kompletterar Bonsai-hanteringen.
-   - Använd **arv** eller **komposition** från Bonsai-klassen eller skapa ett gemensamt Interface(exempelvis `IEntity`).  
+   - Lägg till minst tre nya klasser i klassbiblioteket som kompletterar Bonsai-hanteringen (eller skapa en helt ny idé).
+   - Använd **arv** eller **komposition** från Bonsai-klassen eller skapa en abstrakt klass (t.ex. `Plant`) och ett gemensamt Interface(exempelvis `IEntity`).  
    - I klasserna ska du:  
      - Använda **inkapsling** (public/private/protected).  
      - Fundera på **designprinciper** (t.ex. “Single 
@@ -129,7 +130,7 @@ Enligt kursmålen så ska du:
   - Vilka andra designmönster eller principer skulle kunna vara relevanta?  
 - **Förkodade lösningar i ramverk/klassbibliotek**  
   - Utvärdera hur .NET (t.ex. Minimal API, DI, Collections, LINQ) hjälper din lösning.  
-  - Hur hade du kunnat använda designmönster som Repository eller Strategy?  
+  - Hur hade du kunnat använda designmönster som Repository eller Strategy? (inte nödvändigt)  
 
 ## Hjälp för dig som vill göra mer
 
