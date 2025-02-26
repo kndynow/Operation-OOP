@@ -1,7 +1,5 @@
 
-using Microsoft.Extensions.Options;
 using OperationOOP.Api.Endpoints;
-using OperationOOP.Core.Data;
 
 namespace OperationOOP.Api
 {
