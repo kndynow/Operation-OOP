@@ -18,25 +18,6 @@ public class GetBonsai : IEndpoint
         CareLevel CareLevel
     );
 
-    // private static Response Handle([AsParameters] Request request, IDatabase db)
-    // {
-    //     var bonsai = db.Bonsais.Find(bonsai => bonsai.Id == request.Id);
-
-    //     // map bonsai to response dto
-    //     var response = new Response(
-    //         Id: bonsai.Id,
-    //         Name: bonsai.Name,
-    //         Species: bonsai.Species,
-    //         AgeYears: bonsai.AgeYears,
-    //         LastWatered: bonsai.LastWatered,
-    //         LastPruned: bonsai.LastPruned,
-    //         Style: bonsai.Style,
-    //         CareLevel: bonsai.CareLevel
-    //     );
-
-    //     return response;
-    // }
-
     public static IResult Handle([AsParameters] Request request, IDatabase db)
     {
         try

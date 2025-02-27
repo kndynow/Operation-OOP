@@ -4,10 +4,6 @@ namespace OperationOOP.Api
 {
     public class Program
     {
-        public record Address(string Street, string City);
-
-        public record Person(string Name, Address HomeAddress);
-
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);

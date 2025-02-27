@@ -9,7 +9,7 @@ public class CreateNote : IEndpoint
 
     public record Response(int id);
 
-    private static IResult Handle(Request request, IDatabase db)
+    private static IResult Handle([FromBody] Request request, [FromServices] IDatabase db)
     {
         if (string.IsNullOrWhiteSpace(request.Title))
         {
@@ -36,6 +36,8 @@ public class CreateNote : IEndpoint
         }
         catch (Exception ex)
         {
+            Console.WriteLine($"{ex}");
+
             return TypedResults.StatusCode(500);
         }
     }

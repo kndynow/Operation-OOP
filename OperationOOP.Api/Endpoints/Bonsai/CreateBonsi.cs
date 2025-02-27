@@ -17,7 +17,7 @@ public class CreateBonsai : IEndpoint
 
     public record Response(int id);
 
-    private static Ok<Response> Handle(Request request, IDatabase db)
+    private static IResult Handle(Request request, IDatabase db)
     {
         var bonsai = new Bonsai();
 

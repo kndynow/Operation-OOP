@@ -15,7 +15,7 @@ public class GetNote : IEndpoint
         DateTime UpdatedAt
     );
 
-    private static IResult Handle(Request request, IDatabase db)
+    private static IResult Handle([AsParameters] Request request, IDatabase db)
     {
         try
         {
