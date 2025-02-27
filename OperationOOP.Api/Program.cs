@@ -1,18 +1,19 @@
-
 using OperationOOP.Api.Endpoints;
 
 namespace OperationOOP.Api
 {
     public class Program
     {
+        public record Address(string Street, string City);
+
+        public record Person(string Name, Address HomeAddress);
+
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
             builder.Services.AddAuthorization();
 
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(options =>
             {

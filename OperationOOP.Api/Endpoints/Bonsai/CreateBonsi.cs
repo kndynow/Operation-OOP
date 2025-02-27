@@ -1,28 +1,27 @@
 ﻿namespace OperationOOP.Api.Endpoints;
+
 public class CreateBonsai : IEndpoint
 {
-    public static void MapEndpoint(IEndpointRouteBuilder app) => app
-        .MapPost("/bonsais", Handle)
-        .WithSummary("Bonsai trees");
+    public static void MapEndpoint(IEndpointRouteBuilder app) =>
+        app.MapPost("/bonsais", Handle).WithSummary("Bonsai trees");
 
     public record Request(
         string Name,
-        string Species,
+        Species Species,
         int AgeYears,
         DateTime LastWatered,
         DateTime LastPruned,
         BonsaiStyle Style,
         CareLevel CareLevel
-        );
+    );
+
     public record Response(int id);
 
     private static Ok<Response> Handle(Request request, IDatabase db)
     {
         var bonsai = new Bonsai();
 
-        bonsai.Id = db.Bonsais.Any()
-            ? db.Bonsais.Max(bonsai => bonsai.Id) + 1
-            : 1;
+        bonsai.Id = db.Bonsais.Any() ? db.Bonsais.Max(bonsai => bonsai.Id) + 1 : 1;
         bonsai.Name = request.Name;
         bonsai.Species = request.Species;
         bonsai.AgeYears = request.AgeYears;
@@ -36,4 +35,3 @@ public class CreateBonsai : IEndpoint
         return TypedResults.Ok(new Response(bonsai.Id));
     }
 }
-

@@ -15,11 +15,11 @@ public class Bonsai
 // Enum for the style of the bonsai
 public enum BonsaiStyle
 {
-    Chokkan, // Formal Upright
-    Moyogi, // Informal Upright
-    Shakan, // Slanting
-    Kengai, // Cascade
-    HanKengai, // Semi-cascade
+    Chokkan,
+    Moyogi,
+    Shakan,
+    Kengai,
+    HanKengai,
 }
 
 // Enum for the care level of the bonsai
