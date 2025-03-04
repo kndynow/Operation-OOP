@@ -1,16 +1,18 @@
-﻿using OperationOOP.Core.Models.Enums;
+using System;
 
 namespace OperationOOP.Api.Endpoints;
 
-public class CreateBonsai : IEndpoint
+public class UpdateBonsai : IEndpoint
 {
-    //To group related endpoints
     private const string Tag = "Bonsai";
 
-    public static void MapEndpoint(IEndpointRouteBuilder app) =>
-        app.MapPost("/bonsais", Handle).WithTags(Tag).WithSummary("Create Bonsai");
+    public static void MapEndpoint(IEndpointRouteBuilder app)
+    {
+        app.MapPatch("/bonsais/{Id}", Handle).WithTags(Tag).WithSummary("Update Bonsai");
+    }
 
     public record Request(
+        int Id,
         string Name,
         int AgeYears,
         DateTime LastWatered,
@@ -23,17 +25,14 @@ public class CreateBonsai : IEndpoint
 
     private static IResult Handle(Request request, IDatabase db)
     {
-        var bonsai = new Bonsai();
+        var bonsai = db.Bonsais.Find(b => b.Id == request.Id);
 
-        bonsai.Id = db.Bonsais.Any() ? db.Bonsais.Max(bonsai => bonsai.Id) + 1 : 1;
         bonsai.Name = request.Name;
         bonsai.AgeYears = request.AgeYears;
         bonsai.LastWatered = request.LastWatered;
         bonsai.LastPruned = request.LastPruned;
         bonsai.Style = request.Style;
         bonsai.CareLevel = request.CareLevel;
-
-        db.Bonsais.Add(bonsai);
 
         return TypedResults.Ok(new Response(bonsai.Id));
     }

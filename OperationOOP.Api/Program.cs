@@ -1,3 +1,5 @@
+using Microsoft.Extensions.Options;
+using Microsoft.OpenApi.Models;
 using OperationOOP.Api.Endpoints;
 
 namespace OperationOOP.Api
@@ -7,14 +9,25 @@ namespace OperationOOP.Api
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-
+            //Configure services
             builder.Services.AddAuthorization();
 
+            // builder.Services.AddAuthorization();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(options =>
             {
                 options.CustomSchemaIds(type => type.FullName?.Replace('+', '.'));
                 options.InferSecuritySchemes();
+                options.SwaggerDoc(
+                    "v1",
+                    new OpenApiInfo
+                    {
+                        Title = "Plant Management API",
+                        Version = "v1",
+                        Description = "API for managing and keep journals for your beloved plants.",
+                    }
+                );
+                options.TagActionsBy(api => new[] { api.GroupName });
             });
 
             builder.Services.AddSingleton<IDatabase, Database>();

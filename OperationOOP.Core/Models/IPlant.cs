@@ -2,13 +2,10 @@ using OperationOOP.Core.Models.Enums;
 
 namespace OperationOOP.Core.Models;
 
-public class Bonsai : IPlant
+public interface IPlant : IEntity
 {
-    public int Id { get; set; }
-    public string Name { get; set; } = null!;
-    public Species Species { get; } = Species.Bonsai;
-    public BonsaiType Type { get; set; }
-    public BonsaiStyle Style { get; set; }
+    string Name { get; set; }
+    public Species Species { get; }
     public CareLevel CareLevel { get; set; }
     public int AgeYears { get; set; }
     public DateTime LastWatered { get; set; }
