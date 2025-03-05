@@ -15,7 +15,7 @@ public interface IPlantService
 //PlantService handles basic CRUD operations for plants
 public class PlantService : IPlantService
 {
-    //Dependency Injection for database
+    //DI for database
     private readonly IDatabase _database;
 
     public PlantService(IDatabase database)
