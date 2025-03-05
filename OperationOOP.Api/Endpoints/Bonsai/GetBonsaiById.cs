@@ -1,6 +1,4 @@
-﻿using OperationOOP.Core.Services;
-
-namespace OperationOOP.Api.Endpoints;
+﻿namespace OperationOOP.Api.Endpoints;
 
 public class GetBonsaiById : IEndpoint
 {
@@ -8,18 +6,18 @@ public class GetBonsaiById : IEndpoint
     private const string Tag = "Bonsai";
 
     public static void MapEndpoint(IEndpointRouteBuilder app) =>
-        app.MapGet("/bonsais/{Id}", Handle).WithTags(Tag).WithSummary("Bonsai tree by ID");
+        app.MapGet("/bonsais/{Id}", Handle).WithTags(Tag).WithSummary("Get Bonsai tree by ID");
 
     public record Request(int Id);
 
     public record Response(
         int Id,
         string Name,
-        Species Species,
+        string Species,
+        string Type,
         int AgeYears,
-        CareLevel CareLevel,
-        BonsaiType Type,
-        BonsaiStyle Style,
+        string Style,
+        string CareLevel,
         DateTime LastWatered,
         DateTime LastPruned
     );
@@ -27,11 +25,12 @@ public class GetBonsaiById : IEndpoint
     public static IResult Handle([AsParameters] Request request, IPlantService plantService)
     {
         var plant = plantService.GetById(request.Id);
+        //Check that plant isn't null
         if (plant == null)
         {
             return TypedResults.NotFound($"No plant found with ID {request.Id}");
         }
-        // Cast to Bonsai
+        // Filter out plants that is not of type Bonsai, cast to Bonsai for correctly displaying info
         if (plant is not Bonsai bonsai)
         {
             return TypedResults.NotFound($"Plant with ID {request.Id} is not a Bonsai");
@@ -40,11 +39,11 @@ public class GetBonsaiById : IEndpoint
         var response = new Response(
             Id: bonsai.Id,
             Name: bonsai.Name,
-            Species: bonsai.Species,
+            Species: bonsai.Species.ToString(),
             AgeYears: bonsai.AgeYears,
-            Type: bonsai.Type,
-            Style: bonsai.Style,
-            CareLevel: bonsai.CareLevel,
+            Type: bonsai.Type.ToString(),
+            Style: bonsai.Style.ToString(),
+            CareLevel: bonsai.CareLevel.ToString(),
             LastWatered: bonsai.LastWatered,
             LastPruned: bonsai.LastPruned
         );

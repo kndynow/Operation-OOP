@@ -2,17 +2,15 @@ using OperationOOP.Core.Models.Enums;
 
 namespace OperationOOP.Core.Models;
 
-public class Bonsai : Plant, IPlant, IEntity
+public class Bonsai : Plant
 {
-    public Guid PlantId { get; init; } = Guid.NewGuid();
-    public string Name { get; set; } = null!;
-    public int AgeYears { get; set; }
-    public Species Species { get; } = Species.Bonsai;
-    public BonsaiType Type { get; set; }
-    public BonsaiStyle Style { get; set; }
-    public CareLevel CareLevel { get; set; }
-    public DateTime LastWatered { get; set; }
-    public DateTime LastPruned { get; set; }
+    //Constructor takes Bonsai Type as argument and sets Species to Bonsai
+    public Bonsai(BonsaiType bonsaiType)
+        : base(Species.Bonsai)
+    {
+        Type = bonsaiType;
+    }
 
-    public Guid ReferenceId => PlantId;
+    public BonsaiType Type { get; protected set; }
+    public BonsaiStyle Style { get; set; }
 }

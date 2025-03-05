@@ -14,11 +14,11 @@ public class Database : IDatabase
     public List<Plant> Plants { get; set; } =
         new List<Plant>
         {
-            new Bonsai
+            //Dummy Data
+            new Bonsai(BonsaiType.JuniperusProcumbens)
             {
                 Name = "Test Bonsai",
                 AgeYears = 5,
-                Type = BonsaiType.AcerPalmatum,
                 Style = BonsaiStyle.Chokkan,
                 CareLevel = CareLevel.Intermediate,
                 LastWatered = DateTime.Now.AddDays(-2),

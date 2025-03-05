@@ -1,5 +1,4 @@
 using System;
-using OperationOOP.Core.Services;
 
 namespace OperationOOP.Api.Endpoints;
 
@@ -18,21 +17,27 @@ public class UpdateBonsai : IEndpoint
 
     private static IResult Handle([AsParameters] Request request, IPlantService plantService)
     {
+        //Get existing plant
         var plant = plantService.GetById(request.Id);
         if (plant == null)
         {
             return TypedResults.NotFound($"No plant found with ID {request.Id}");
         }
-        // Cast to Bonsai
+        // Filter out plants that is not of type bonsai and cast plant-object to bonsai for correctly displaying info
         if (plant is not Bonsai bonsai)
         {
-            return TypedResults.NotFound($"Plant with ID {request.Id} is not a Bonsai");
+            return TypedResults.NotFound($"Plant with ID {request.Id} is not a bonsai");
         }
-
+        //Update properties and call update
         bonsai.Name = request.Name;
-        bonsai.Style = request.Style;
         bonsai.CareLevel = request.CareLevel;
 
-        return TypedResults.Ok(new Response(bonsai));
+        var updatedBonsai = plantService.Update(bonsai);
+        if (updatedBonsai == null)
+        {
+            return TypedResults.Problem("Failed to update bonsai");
+        }
+
+        return TypedResults.Ok(new Response((Bonsai)updatedBonsai));
     }
 }

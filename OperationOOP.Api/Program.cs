@@ -1,7 +1,5 @@
-using Microsoft.Extensions.Options;
-using Microsoft.OpenApi.Models;
 using OperationOOP.Api.Endpoints;
-using OperationOOP.Core.Services;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace OperationOOP.Api
 {

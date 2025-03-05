@@ -1,9 +1,6 @@
-﻿using Microsoft.AspNetCore.Http.Features;
-using OperationOOP.Core.Services;
+﻿namespace OperationOOP.Api.Endpoints;
 
-namespace OperationOOP.Api.Endpoints;
-
-public class GetBonsai : IEndpoint
+public class GetAllBonsais : IEndpoint
 {
     //To group related endpoints
     private const string Tag = "Bonsai";
@@ -16,10 +13,10 @@ public class GetBonsai : IEndpoint
     public record Response(
         int Id,
         string Name,
-        Species Species,
-        BonsaiType Type,
-        BonsaiStyle Style,
-        CareLevel CareLevel,
+        string Species,
+        string Type,
+        string Style,
+        string CareLevel,
         int AgeYears,
         DateTime LastWatered,
         DateTime LastPruned
@@ -35,10 +32,10 @@ public class GetBonsai : IEndpoint
             .Select(b => new Response(
                 b.Id,
                 b.Name,
-                b.Species,
-                b.Type,
-                b.Style,
-                b.CareLevel,
+                b.Species.ToString(),
+                b.Type.ToString(),
+                b.Style.ToString(),
+                b.CareLevel.ToString(),
                 b.AgeYears,
                 b.LastWatered,
                 b.LastPruned

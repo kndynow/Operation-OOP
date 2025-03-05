@@ -1,5 +1,4 @@
 using System;
-using OperationOOP.Core.Services;
 
 namespace OperationOOP.Api.Endpoints;
 
@@ -9,7 +8,7 @@ public class DeleteBonsai : IEndpoint
     private const string Tag = "Bonsai";
 
     public static void MapEndpoint(IEndpointRouteBuilder app) =>
-        app.MapDelete("/bonsais{Id}", Handle).WithTags(Tag).WithSummary("Delete Bonsai");
+        app.MapDelete("/bonsais/{Id}", Handle).WithTags(Tag).WithSummary("Delete Bonsai");
 
     public record Request(int Id);
 
@@ -19,6 +18,6 @@ public class DeleteBonsai : IEndpoint
     {
         plantService.Delete(request.Id);
 
-        return TypedResults.NotFound($"Bonsai with ID {request.Id} have been removed.");
+        return TypedResults.Ok($"Bonsai with ID {request.Id} have been removed.");
     }
 }

@@ -6,7 +6,7 @@ namespace OperationOOP.Core.Services;
 public interface IPlantService
 {
     void Create(Plant plant);
-    Plant Update();
+    Plant Update(Plant updatePlant);
     List<Plant> GetAll();
     Plant GetById(int id);
     void Delete(int id);
@@ -34,12 +34,22 @@ public class PlantService : IPlantService
 
     public Plant GetById(int id)
     {
-        return _database.Plants.FirstOrDefault(p => p.Id == id);
+        var plant = _database.Plants.FirstOrDefault(p => p.Id == id);
+        return plant;
     }
 
-    public Plant Update()
+    public Plant Update(Plant updatedPlant)
     {
-        throw new NotImplementedException();
+        var existingPlant = _database.Plants.FirstOrDefault(p => p.Id == updatedPlant.Id);
+
+        if (existingPlant != null)
+        {
+            existingPlant.Name = updatedPlant.Name;
+            existingPlant.CareLevel = updatedPlant.CareLevel;
+
+            return existingPlant;
+        }
+        return null;
     }
 
     public void Delete(int id)

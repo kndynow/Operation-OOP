@@ -15,6 +15,7 @@ public enum Species
     Orchid,
 }
 
+//Care-level
 public enum CareLevel
 {
     [Display(Name = "Beginner")]
@@ -52,6 +53,7 @@ public enum BonsaiType
     ZelkovaSerrata,
 }
 
+//Bonsai Styles
 public enum BonsaiStyle
 {
     [Display(Name = "Chokkan")]
@@ -68,4 +70,48 @@ public enum BonsaiStyle
 
     [Display(Name = "Han Kengai")]
     HanKengai,
+}
+
+//Succulent types/subgroups
+public enum SucculentType
+{
+    [Display(Name = "Aloe vera")]
+    AloeVera,
+
+    [Display(Name = "Echeveria Elegans")]
+    EcheveriaElegans,
+
+    [Display(Name = "Haworthia Fasciata")]
+    HaworthiaFasciata,
+
+    [Display(Name = "Crassula Ovata")]
+    CrassulaOvata,
+
+    [Display(Name = "Sedum Morganianum")]
+    SedumMorganianum,
+
+    [Display(Name = "Klasius Fehrvatzius")]
+    KlasiusFehrvatzius,
+}
+
+//Orchid types/subgroups
+public enum OrchidType
+{
+    [Display(Name = "Phalaenopsis")]
+    Phalaenopsis,
+
+    [Display(Name = "Cattleya")]
+    Cattleya,
+
+    [Display(Name = "Dendrobium")]
+    Dendrobium,
+
+    [Display(Name = "Oncidium")]
+    Oncidium,
+
+    [Display(Name = "Paphiopedilum")]
+    Paphiopedilum,
+
+    [Display(Name = "Ariftiomustang")]
+    Ariftiomustang,
 }
