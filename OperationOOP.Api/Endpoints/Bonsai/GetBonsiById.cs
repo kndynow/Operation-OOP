@@ -1,4 +1,6 @@
-﻿namespace OperationOOP.Api.Endpoints;
+﻿using OperationOOP.Core.Services;
+
+namespace OperationOOP.Api.Endpoints;
 
 public class GetBonsaiById : IEndpoint
 {
@@ -15,42 +17,38 @@ public class GetBonsaiById : IEndpoint
         string Name,
         Species Species,
         int AgeYears,
-        BonsaiType BonsaiType,
-        BonsaiStyle BonsaiStyle,
         CareLevel CareLevel,
+        BonsaiType Type,
+        BonsaiStyle Style,
         DateTime LastWatered,
         DateTime LastPruned
     );
 
-    public static IResult Handle([AsParameters] Request request, IDatabase db)
+    public static IResult Handle([AsParameters] Request request, IPlantService plantService)
     {
-        try
+        var plant = plantService.GetById(request.Id);
+        if (plant == null)
         {
-            var bonsai = db.Bonsais.Find(b => b.Id == request.Id);
+            return TypedResults.NotFound($"No plant found with ID {request.Id}");
+        }
+        // Cast to Bonsai
+        if (plant is not Bonsai bonsai)
+        {
+            return TypedResults.NotFound($"Plant with ID {request.Id} is not a Bonsai");
+        }
 
-            if (bonsai == null)
-            {
-                return TypedResults.NotFound($"Bonsai with ID {request.Id} not found");
-            }
-            return TypedResults.Ok(
-                new Response(
-                    Id: bonsai.Id,
-                    Name: bonsai.Name,
-                    Species: bonsai.Species,
-                    AgeYears: bonsai.AgeYears,
-                    BonsaiType: bonsai.Type,
-                    BonsaiStyle: bonsai.Style,
-                    CareLevel: bonsai.CareLevel,
-                    LastWatered: bonsai.LastWatered,
-                    LastPruned: bonsai.LastPruned
-                )
-            );
-        }
-        catch (Exception ex)
-        {
-            return TypedResults.Problem(
-                $"Something went wrong when retrieving bonsai with ID: {request.Id} Exception: {ex.Message}"
-            );
-        }
+        var response = new Response(
+            Id: bonsai.Id,
+            Name: bonsai.Name,
+            Species: bonsai.Species,
+            AgeYears: bonsai.AgeYears,
+            Type: bonsai.Type,
+            Style: bonsai.Style,
+            CareLevel: bonsai.CareLevel,
+            LastWatered: bonsai.LastWatered,
+            LastPruned: bonsai.LastPruned
+        );
+
+        return TypedResults.Ok(response);
     }
 }

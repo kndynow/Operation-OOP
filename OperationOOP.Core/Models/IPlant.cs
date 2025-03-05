@@ -2,8 +2,9 @@ using OperationOOP.Core.Models.Enums;
 
 namespace OperationOOP.Core.Models;
 
-public interface IPlant : IEntity
+public interface IPlant
 {
+    Guid PlantId { get; init; }
     string Name { get; set; }
     public Species Species { get; }
     public CareLevel CareLevel { get; set; }

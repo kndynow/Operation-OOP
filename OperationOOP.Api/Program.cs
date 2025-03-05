@@ -1,6 +1,7 @@
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using OperationOOP.Api.Endpoints;
+using OperationOOP.Core.Services;
 
 namespace OperationOOP.Api
 {
@@ -31,6 +32,7 @@ namespace OperationOOP.Api
             });
 
             builder.Services.AddSingleton<IDatabase, Database>();
+            builder.Services.AddSingleton<IPlantService, PlantService>();
 
             var app = builder.Build();
 

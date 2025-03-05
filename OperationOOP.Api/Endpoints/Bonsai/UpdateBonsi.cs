@@ -1,4 +1,5 @@
 using System;
+using OperationOOP.Core.Services;
 
 namespace OperationOOP.Api.Endpoints;
 
@@ -8,32 +9,30 @@ public class UpdateBonsai : IEndpoint
 
     public static void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapPatch("/bonsais/{Id}", Handle).WithTags(Tag).WithSummary("Update Bonsai");
+        app.MapPut("/bonsais/{Id}", Handle).WithTags(Tag).WithSummary("Update Bonsai");
     }
 
-    public record Request(
-        int Id,
-        string Name,
-        int AgeYears,
-        DateTime LastWatered,
-        DateTime LastPruned,
-        BonsaiStyle Style,
-        CareLevel CareLevel
-    );
+    public record Request(int Id, string Name, BonsaiStyle Style, CareLevel CareLevel);
 
-    public record Response(int id);
+    public record Response(Bonsai bonsai);
 
-    private static IResult Handle(Request request, IDatabase db)
+    private static IResult Handle([AsParameters] Request request, IPlantService plantService)
     {
-        var bonsai = db.Bonsais.Find(b => b.Id == request.Id);
+        var plant = plantService.GetById(request.Id);
+        if (plant == null)
+        {
+            return TypedResults.NotFound($"No plant found with ID {request.Id}");
+        }
+        // Cast to Bonsai
+        if (plant is not Bonsai bonsai)
+        {
+            return TypedResults.NotFound($"Plant with ID {request.Id} is not a Bonsai");
+        }
 
         bonsai.Name = request.Name;
-        bonsai.AgeYears = request.AgeYears;
-        bonsai.LastWatered = request.LastWatered;
-        bonsai.LastPruned = request.LastPruned;
         bonsai.Style = request.Style;
         bonsai.CareLevel = request.CareLevel;
 
-        return TypedResults.Ok(new Response(bonsai.Id));
+        return TypedResults.Ok(new Response(bonsai));
     }
 }

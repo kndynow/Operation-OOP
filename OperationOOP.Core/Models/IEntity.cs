@@ -6,5 +6,5 @@ namespace OperationOOP.Core.Models;
 public interface IEntity
 {
     int Id { get; }
-    // Guid ReferenceId { get; }
+    Guid ReferenceId { get; }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http.Features;
+using OperationOOP.Core.Services;
 
 namespace OperationOOP.Api.Endpoints;
 
@@ -12,34 +13,37 @@ public class GetBonsai : IEndpoint
         app.MapGet("/bonsais", Handle).WithTags(Tag).WithSummary("Get all Bonsai trees");
 
     // Request and Response types
-    public record Response(int Id, string Name, DateTime LastWatered, DateTime LastPruned);
+    public record Response(
+        int Id,
+        string Name,
+        Species Species,
+        BonsaiType Type,
+        BonsaiStyle Style,
+        CareLevel CareLevel,
+        int AgeYears,
+        DateTime LastWatered,
+        DateTime LastPruned
+    );
 
     //Logics
-    private static IResult Handle(IDatabase db)
+    private static IResult Handle(IPlantService plantService)
     {
-        try
-        {
-            var bonsais = db
-                .Bonsais.Select(item => new Response(
-                    Id: item.Id,
-                    Name: item.Name,
-                    LastWatered: item.LastWatered,
-                    LastPruned: item.LastPruned
-                ))
-                .ToList();
+        var bonsais = plantService
+            .GetAll()
+            .Where(p => p is Bonsai)
+            .Cast<Bonsai>()
+            .Select(b => new Response(
+                b.Id,
+                b.Name,
+                b.Species,
+                b.Type,
+                b.Style,
+                b.CareLevel,
+                b.AgeYears,
+                b.LastWatered,
+                b.LastPruned
+            ));
 
-            if (!bonsais.Any())
-            {
-                return TypedResults.NotFound("There are no Bonsai's registerd.");
-            }
-
-            return TypedResults.Ok(bonsais);
-        }
-        catch (Exception ex)
-        {
-            return TypedResults.Problem(
-                $"Something went wrong when retrieving list of Bonsais Exception: {ex.Message}"
-            );
-        }
+        return TypedResults.Ok(bonsais);
     }
 }

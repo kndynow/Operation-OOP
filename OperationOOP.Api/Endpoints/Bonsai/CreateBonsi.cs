@@ -1,4 +1,6 @@
-﻿using OperationOOP.Core.Models.Enums;
+﻿using System.ComponentModel;
+using OperationOOP.Core.Models.Enums;
+using OperationOOP.Core.Services;
 
 namespace OperationOOP.Api.Endpoints;
 
@@ -12,28 +14,27 @@ public class CreateBonsai : IEndpoint
 
     public record Request(
         string Name,
+        BonsaiStyle Style,
+        CareLevel CareLevel,
         int AgeYears,
         DateTime LastWatered,
-        DateTime LastPruned,
-        BonsaiStyle Style,
-        CareLevel CareLevel
+        DateTime LastPruned
     );
 
     public record Response(int id);
 
-    private static IResult Handle(Request request, IDatabase db)
+    private static IResult Handle(Request request, IPlantService plantService)
     {
-        var bonsai = new Bonsai();
-
-        bonsai.Id = db.Bonsais.Any() ? db.Bonsais.Max(bonsai => bonsai.Id) + 1 : 1;
-        bonsai.Name = request.Name;
-        bonsai.AgeYears = request.AgeYears;
-        bonsai.LastWatered = request.LastWatered;
-        bonsai.LastPruned = request.LastPruned;
-        bonsai.Style = request.Style;
-        bonsai.CareLevel = request.CareLevel;
-
-        db.Bonsais.Add(bonsai);
+        var bonsai = new Bonsai()
+        {
+            Name = request.Name,
+            Style = request.Style,
+            CareLevel = request.CareLevel,
+            AgeYears = request.AgeYears,
+            LastWatered = request.LastWatered,
+            LastPruned = request.LastPruned,
+        };
+        plantService.Create(bonsai);
 
         return TypedResults.Ok(new Response(bonsai.Id));
     }

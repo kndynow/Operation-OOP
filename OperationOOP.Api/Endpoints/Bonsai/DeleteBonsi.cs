@@ -1,4 +1,5 @@
 using System;
+using OperationOOP.Core.Services;
 
 namespace OperationOOP.Api.Endpoints;
 
@@ -14,12 +15,10 @@ public class DeleteBonsai : IEndpoint
 
     public record Response(int Id);
 
-    private static IResult Handle([AsParameters] Request request, IDatabase db)
+    private static IResult Handle([AsParameters] Request request, IPlantService plantService)
     {
-        var bonsai = db.Bonsais.Find(b => b.Id == request.Id);
+        plantService.Delete(request.Id);
 
-        db.Bonsais.Remove(bonsai);
-
-        return TypedResults.NotFound($"Bonsai with ID {bonsai.Id} have been removed.");
+        return TypedResults.NotFound($"Bonsai with ID {request.Id} have been removed.");
     }
 }

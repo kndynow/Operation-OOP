@@ -5,44 +5,24 @@ namespace OperationOOP.Core.Data;
 
 public interface IDatabase
 {
-    List<Bonsai> Bonsais { get; set; }
+    List<Plant> Plants { get; set; }
     List<Note> Notes { get; set; }
 }
 
 public class Database : IDatabase
 {
-    public List<Bonsai> Bonsais { get; set; } =
-        new List<Bonsai>()
+    public List<Plant> Plants { get; set; } =
+        new List<Plant>
         {
-            new Bonsai()
+            new Bonsai
             {
-                Id = 1,
-                Name = "Bubba",
-                AgeYears = 1,
-                CareLevel = CareLevel.Beginner,
-                LastWatered = DateTime.Now,
-                LastPruned = DateTime.Today,
-                Style = BonsaiStyle.Moyogi,
-            },
-            new Bonsai()
-            {
-                Id = 2,
-                Name = "Fehrvatz",
-                AgeYears = 1,
-                CareLevel = CareLevel.Master,
-                LastWatered = DateTime.Now,
-                LastPruned = DateTime.Today,
-                Style = BonsaiStyle.Shakan,
-            },
-            new Bonsai()
-            {
-                Id = 3,
-                Name = "Larsa",
-                AgeYears = 1,
+                Name = "Test Bonsai",
+                AgeYears = 5,
+                Type = BonsaiType.AcerPalmatum,
+                Style = BonsaiStyle.Chokkan,
                 CareLevel = CareLevel.Intermediate,
-                LastWatered = DateTime.Now,
-                LastPruned = DateTime.Today,
-                Style = BonsaiStyle.HanKengai,
+                LastWatered = DateTime.Now.AddDays(-2),
+                LastPruned = DateTime.Now.AddDays(-14),
             },
         };
     public List<Note> Notes { get; set; } = new List<Note>();
