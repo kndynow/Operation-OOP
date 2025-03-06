@@ -1,8 +1,10 @@
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace OperationOOP.Core.Models.Enums;
 
 //Plant Enums
+[JsonConverter(typeof(JsonStringEnumConverter))]
 public enum Species
 {
     [Display(Name = "Bonsai")]
@@ -16,6 +18,7 @@ public enum Species
 }
 
 //Care-level
+[JsonConverter(typeof(JsonStringEnumConverter))]
 public enum CareLevel
 {
     [Display(Name = "Beginner")]
@@ -32,6 +35,7 @@ public enum CareLevel
 }
 
 //Bonsai Enums
+[JsonConverter(typeof(JsonStringEnumConverter))]
 public enum BonsaiType
 {
     [Display(Name = "Acer Palmatum")]
@@ -54,6 +58,7 @@ public enum BonsaiType
 }
 
 //Bonsai Styles
+[JsonConverter(typeof(JsonStringEnumConverter))]
 public enum BonsaiStyle
 {
     [Display(Name = "Chokkan")]
@@ -73,6 +78,7 @@ public enum BonsaiStyle
 }
 
 //Succulent types/subgroups
+[JsonConverter(typeof(JsonStringEnumConverter))]
 public enum SucculentType
 {
     [Display(Name = "Aloe vera")]
@@ -95,6 +101,7 @@ public enum SucculentType
 }
 
 //Orchid types/subgroups
+[JsonConverter(typeof(JsonStringEnumConverter))]
 public enum OrchidType
 {
     [Display(Name = "Phalaenopsis")]

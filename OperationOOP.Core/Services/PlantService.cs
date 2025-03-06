@@ -2,7 +2,7 @@ using System;
 
 namespace OperationOOP.Core.Services;
 
-// Interface defenition to handle different kinds of plants
+//Defining contract for plant CRUD operations
 public interface IPlantService
 {
     void Create(Plant plant);
@@ -12,10 +12,10 @@ public interface IPlantService
     void Delete(int id);
 }
 
-//PlantService handles basic CRUD operations for plants
+//Handles basic CRUD operations for plants (Repository Pattern)
 public class PlantService : IPlantService
 {
-    //DI for database
+    //DI for database access through constructor
     private readonly IDatabase _database;
 
     public PlantService(IDatabase database)
@@ -23,25 +23,30 @@ public class PlantService : IPlantService
         _database = database;
     }
 
-    //CRUD operations
+    //CRUD operations, can handle any type derived from Plant
+    //Add plant
     public void Create(Plant plant)
     {
         plant.Id = _database.Plants.Any() ? _database.Plants.Max(plant => plant.Id) + 1 : 1;
         _database.Plants.Add(plant);
     }
 
+    //Get all plants
     public List<Plant> GetAll() => _database.Plants.ToList();
 
+    //Get plants by ID
     public Plant GetById(int id)
     {
         var plant = _database.Plants.FirstOrDefault(p => p.Id == id);
         return plant;
     }
 
+    //Update plant
     public Plant Update(Plant updatedPlant)
     {
+        //Get existing plant by ID
         var existingPlant = _database.Plants.FirstOrDefault(p => p.Id == updatedPlant.Id);
-
+        //Check that existing plant isn't null and update fields
         if (existingPlant != null)
         {
             existingPlant.Name = updatedPlant.Name;
@@ -52,6 +57,7 @@ public class PlantService : IPlantService
         return null;
     }
 
+    //Delete plant from database using ID
     public void Delete(int id)
     {
         var plant = GetById(id);

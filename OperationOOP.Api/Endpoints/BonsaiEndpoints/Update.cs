@@ -1,8 +1,6 @@
-using System;
+namespace OperationOOP.Api.Endpoints.BonsaiEndpoints;
 
-namespace OperationOOP.Api.Endpoints;
-
-public class UpdateBonsai : IEndpoint
+public class Update : IEndpoint
 {
     private const string Tag = "Bonsai";
 
@@ -32,12 +30,12 @@ public class UpdateBonsai : IEndpoint
         bonsai.Name = request.Name;
         bonsai.CareLevel = request.CareLevel;
 
-        var updatedBonsai = plantService.Update(bonsai);
-        if (updatedBonsai == null)
+        var updated = plantService.Update(bonsai);
+        if (updated == null)
         {
-            return TypedResults.Problem("Failed to update bonsai");
+            return TypedResults.Problem("Failed to update ");
         }
 
-        return TypedResults.Ok(new Response((Bonsai)updatedBonsai));
+        return TypedResults.Ok(new Response((Bonsai)updated));
     }
 }

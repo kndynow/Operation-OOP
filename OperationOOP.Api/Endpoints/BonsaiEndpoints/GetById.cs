@@ -1,6 +1,6 @@
-﻿namespace OperationOOP.Api.Endpoints;
+﻿namespace OperationOOP.Api.Endpoints.BonsaiEndpoints;
 
-public class GetBonsaiById : IEndpoint
+public class GetById : IEndpoint
 {
     //To group related endpoints
     private const string Tag = "Bonsai";
@@ -13,11 +13,11 @@ public class GetBonsaiById : IEndpoint
     public record Response(
         int Id,
         string Name,
-        string Species,
-        string Type,
+        Species Species,
+        BonsaiType Type,
+        BonsaiStyle Style,
+        CareLevel CareLevel,
         int AgeYears,
-        string Style,
-        string CareLevel,
         DateTime LastWatered,
         DateTime LastPruned
     );
@@ -39,11 +39,11 @@ public class GetBonsaiById : IEndpoint
         var response = new Response(
             Id: bonsai.Id,
             Name: bonsai.Name,
-            Species: bonsai.Species.ToString(),
+            Species: bonsai.Species,
+            Type: bonsai.Type,
+            Style: bonsai.Style,
+            CareLevel: bonsai.CareLevel,
             AgeYears: bonsai.AgeYears,
-            Type: bonsai.Type.ToString(),
-            Style: bonsai.Style.ToString(),
-            CareLevel: bonsai.CareLevel.ToString(),
             LastWatered: bonsai.LastWatered,
             LastPruned: bonsai.LastPruned
         );

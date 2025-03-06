@@ -1,8 +1,6 @@
-using System;
+namespace OperationOOP.Api.Endpoints.SucculentEndpoints;
 
-namespace OperationOOP.Api.Endpoints;
-
-public class GetSucculentById : IEndpoint
+public class GetById : IEndpoint
 {
     //To group related endpoints
     private const string Tag = "Succulent";
@@ -15,10 +13,10 @@ public class GetSucculentById : IEndpoint
     public record Response(
         int Id,
         string Name,
-        string Species,
-        string Type,
+        Species Species,
+        SucculentType Type,
+        CareLevel CareLevel,
         int AgeYears,
-        string CareLevel,
         DateTime LastWatered,
         DateTime LastPruned
     );
@@ -40,10 +38,10 @@ public class GetSucculentById : IEndpoint
         var response = new Response(
             Id: succulent.Id,
             Name: succulent.Name,
-            Species: succulent.Species.ToString(),
+            Species: succulent.Species,
+            Type: succulent.Type,
+            CareLevel: succulent.CareLevel,
             AgeYears: succulent.AgeYears,
-            Type: succulent.Type.ToString(),
-            CareLevel: succulent.CareLevel.ToString(),
             LastWatered: succulent.LastWatered,
             LastPruned: succulent.LastPruned
         );

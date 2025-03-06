@@ -1,5 +1,4 @@
 using OperationOOP.Api.Endpoints;
-using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace OperationOOP.Api
 {
@@ -8,10 +7,9 @@ namespace OperationOOP.Api
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
             //Configure services
             builder.Services.AddAuthorization();
-
-            // builder.Services.AddAuthorization();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(options =>
             {
@@ -26,7 +24,6 @@ namespace OperationOOP.Api
                         Description = "API for managing and keep journals for your beloved plants.",
                     }
                 );
-                options.TagActionsBy(api => new[] { api.GroupName });
             });
 
             builder.Services.AddSingleton<IDatabase, Database>();

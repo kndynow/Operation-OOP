@@ -3,7 +3,7 @@ using OperationOOP.Core.Models.Enums;
 
 namespace OperationOOP.Core.Models;
 
-public abstract class Plant : IPlant, IEntity
+public abstract class Plant : IPlant
 {
     //Base constructor to set species
     protected Plant(Species species)
@@ -11,15 +11,14 @@ public abstract class Plant : IPlant, IEntity
         Species = species;
     }
 
+    //Properties that all plants will inherite
     public int Id { get; set; }
-    public Guid PlantId { get; init; } = Guid.NewGuid();
-    public Species Species { get; }
     public string Name { get; set; } = null!;
+    public Species Species { get; }
     public CareLevel CareLevel { get; set; }
     public int AgeYears { get; set; }
     public DateTime LastWatered { get; set; }
     public DateTime LastPruned { get; set; }
-    public Guid ReferenceId => PlantId;
 
     private bool NeedsWater()
     {

@@ -8,7 +8,7 @@ public class Succulent : Plant
     public Succulent(SucculentType succulentType)
         : base(Species.Succulent)
     {
-        this.Type = succulentType;
+        Type = succulentType;
     }
 
     public SucculentType Type { get; protected set; }

@@ -1,6 +1,6 @@
-﻿namespace OperationOOP.Api.Endpoints;
+﻿namespace OperationOOP.Api.Endpoints.OrchidEndpoints;
 
-public class GetOrchidById : IEndpoint
+public class GetById : IEndpoint
 {
     //To group related endpoints
     private const string Tag = "Orchid";
@@ -13,10 +13,10 @@ public class GetOrchidById : IEndpoint
     public record Response(
         int Id,
         string Name,
-        string Species,
-        string Type,
+        Species Species,
+        OrchidType Type,
+        CareLevel CareLevel,
         int AgeYears,
-        string CareLevel,
         DateTime LastWatered,
         DateTime LastPruned
     );
@@ -38,10 +38,10 @@ public class GetOrchidById : IEndpoint
         var response = new Response(
             Id: orchid.Id,
             Name: orchid.Name,
-            Species: orchid.Species.ToString(),
+            Species: orchid.Species,
+            Type: orchid.Type,
+            CareLevel: orchid.CareLevel,
             AgeYears: orchid.AgeYears,
-            Type: orchid.Type.ToString(),
-            CareLevel: orchid.CareLevel.ToString(),
             LastWatered: orchid.LastWatered,
             LastPruned: orchid.LastPruned
         );

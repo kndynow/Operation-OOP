@@ -1,23 +1,21 @@
-using System;
+﻿namespace OperationOOP.Api.Endpoints.OrchidEndpoints;
 
-namespace OperationOOP.Api.Endpoints;
-
-public class GetAllSucculents : IEndpoint
+public class GetAll : IEndpoint
 {
     //To group related endpoints
-    private const string Tag = "Succulent";
+    private const string Tag = "Orchid";
 
     // Mapping
     public static void MapEndpoint(IEndpointRouteBuilder app) =>
-        app.MapGet("/succulents", Handle).WithTags(Tag).WithSummary("Get all succulents");
+        app.MapGet("/orchids", Handle).WithTags(Tag).WithSummary("Get all Orchids");
 
     // Request and Response types
     public record Response(
         int Id,
         string Name,
-        string Species,
-        string Type,
-        string CareLevel,
+        Species Species,
+        OrchidType Type,
+        CareLevel CareLevel,
         int AgeYears,
         DateTime LastWatered,
         DateTime LastPruned
@@ -26,21 +24,21 @@ public class GetAllSucculents : IEndpoint
     //Logics
     private static IResult Handle(IPlantService plantService)
     {
-        var succulents = plantService
+        var orchids = plantService
             .GetAll()
-            .Where(p => p is Succulent)
-            .Cast<Succulent>()
+            .Where(p => p is Orchid)
+            .Cast<Orchid>()
             .Select(b => new Response(
                 b.Id,
                 b.Name,
-                b.Species.ToString(),
-                b.Type.ToString(),
-                b.CareLevel.ToString(),
+                b.Species,
+                b.Type,
+                b.CareLevel,
                 b.AgeYears,
                 b.LastWatered,
                 b.LastPruned
             ));
 
-        return TypedResults.Ok(succulents);
+        return TypedResults.Ok(orchids);
     }
 }

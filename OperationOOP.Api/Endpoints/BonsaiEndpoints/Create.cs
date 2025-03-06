@@ -1,6 +1,6 @@
-﻿namespace OperationOOP.Api.Endpoints;
+﻿namespace OperationOOP.Api.Endpoints.BonsaiEndpoints;
 
-public class CreateBonsai : IEndpoint
+public class Create : IEndpoint
 {
     //To group related endpoints
     private const string Tag = "Bonsai";

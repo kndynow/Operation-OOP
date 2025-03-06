@@ -1,6 +1,8 @@
 @OperationOOP.Api_HostAddress = http://localhost:5016
 
-GET {{OperationOOP.Api_HostAddress}}/weatherforecast/
+GET {{OperationOOP.Api_HostAddress}}/bonsais/
+GET {{OperationOOP.Api_HostAddress}}/orchids
+GET {{OperationOOP.Api_HostAddress}}/succulents
 Accept: application/json
 
 ###

@@ -4,7 +4,7 @@ namespace OperationOOP.Core.Models;
 
 public interface IPlant
 {
-    Guid PlantId { get; init; }
+    public int Id { get; set; }
     string Name { get; set; }
     public Species Species { get; }
     public CareLevel CareLevel { get; set; }

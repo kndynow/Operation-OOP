@@ -1,14 +1,12 @@
-using System;
+namespace OperationOOP.Api.Endpoints.BonsaiEndpoints;
 
-namespace OperationOOP.Api.Endpoints;
-
-public class DeleteSucculent : IEndpoint
+public class Delete : IEndpoint
 {
     //To group related endpoints
-    private const string Tag = "Succulent";
+    private const string Tag = "Bonsai";
 
     public static void MapEndpoint(IEndpointRouteBuilder app) =>
-        app.MapDelete("/succulents/{Id}", Handle).WithTags(Tag).WithSummary("Delete Succulent");
+        app.MapDelete("/bonsais/{Id}", Handle).WithTags(Tag).WithSummary("Delete Bonsai");
 
     public record Request(int Id);
 
@@ -18,6 +16,6 @@ public class DeleteSucculent : IEndpoint
     {
         plantService.Delete(request.Id);
 
-        return TypedResults.Ok($"Succulent with ID {request.Id} have been removed.");
+        return TypedResults.Ok($"Bonsai with ID {request.Id} have been removed.");
     }
 }

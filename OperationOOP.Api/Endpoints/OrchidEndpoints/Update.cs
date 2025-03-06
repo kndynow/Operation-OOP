@@ -1,8 +1,6 @@
-using System;
+namespace OperationOOP.Api.Endpoints.OrchidEndpoints;
 
-namespace OperationOOP.Api.Endpoints;
-
-public class UpdateOrchid : IEndpoint
+public class Update : IEndpoint
 {
     private const string Tag = "Orchid";
 

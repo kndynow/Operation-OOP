@@ -6,7 +6,6 @@ namespace OperationOOP.Core.Data;
 public interface IDatabase
 {
     List<Plant> Plants { get; set; }
-    List<Note> Notes { get; set; }
 }
 
 public class Database : IDatabase
@@ -25,5 +24,4 @@ public class Database : IDatabase
                 LastPruned = DateTime.Now.AddDays(-14),
             },
         };
-    public List<Note> Notes { get; set; } = new List<Note>();
 }

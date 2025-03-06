@@ -1,8 +1,6 @@
-using System;
+namespace OperationOOP.Api.Endpoints.SucculentEndpoints;
 
-namespace OperationOOP.Api.Endpoints;
-
-public class UpdateSucculent : IEndpoint
+public class Update : IEndpoint
 {
     //To group related endpoints
     private const string Tag = "Succulent";

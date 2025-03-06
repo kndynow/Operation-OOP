@@ -1,23 +1,22 @@
-﻿using Microsoft.AspNetCore.Http.Features;
+﻿namespace OperationOOP.Api.Endpoints.BonsaiEndpoints;
 
-namespace OperationOOP.Api.Endpoints;
-
-public class GetAllOrchid : IEndpoint
+public class GetAll : IEndpoint
 {
     //To group related endpoints
-    private const string Tag = "Orchid";
+    private const string Tag = "Bonsai";
 
     // Mapping
     public static void MapEndpoint(IEndpointRouteBuilder app) =>
-        app.MapGet("/orchids", Handle).WithTags(Tag).WithSummary("Get all Orchids");
+        app.MapGet("/bonsais", Handle).WithTags(Tag).WithSummary("Get all Bonsai trees");
 
     // Request and Response types
     public record Response(
         int Id,
         string Name,
-        string Species,
-        string Type,
-        string CareLevel,
+        Species Species,
+        BonsaiType Type,
+        BonsaiStyle Style,
+        CareLevel CareLevel,
         int AgeYears,
         DateTime LastWatered,
         DateTime LastPruned
@@ -26,21 +25,22 @@ public class GetAllOrchid : IEndpoint
     //Logics
     private static IResult Handle(IPlantService plantService)
     {
-        var orchids = plantService
+        var bonsais = plantService
             .GetAll()
-            .Where(p => p is Orchid)
-            .Cast<Orchid>()
+            .Where(p => p is Bonsai)
+            .Cast<Bonsai>()
             .Select(b => new Response(
                 b.Id,
                 b.Name,
-                b.Species.ToString(),
-                b.Type.ToString(),
-                b.CareLevel.ToString(),
+                b.Species,
+                b.Type,
+                b.Style,
+                b.CareLevel,
                 b.AgeYears,
                 b.LastWatered,
                 b.LastPruned
             ));
 
-        return TypedResults.Ok(orchids);
+        return TypedResults.Ok(bonsais);
     }
 }
